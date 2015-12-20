@@ -1,5 +1,13 @@
 #temperature{
+  font-size:2em;
+}
+.col-centered{  
+  float: none;
+  margin: 0 auto;
+}
 
-font-size:2em;
+.row{
+
+margin-bottom:1px;
 
 }
