@@ -30,12 +30,12 @@ function updateHTML(user,userData){
 
   if (!userData.stream){
 //    var currentHTML = document.getElementById('userContainer').innerHTML;
-    document.getElementById('userContainer').innerHTML += "</br>" +user + " is offline."
+    document.getElementById('userContainer').innerHTML += "<div class='label label-default col-xs-6'>" +user + " is offline. </div>"
   }
   if (userData.stream){  
     console.log(userData);
     currentHTML = document.getElementById('userContainer').innerHTML;
-    document.getElementById('userContainer').innerHTML = "</br>" +user + " IS ONLINE!" + "<div> <small>" + userData.stream.game+"  <b>Viewers: </b>" + userData.stream.viewers + "  <img src='"+ userData.stream.preview.small+"'></img></small>"+currentHTML;
+    document.getElementById('userContainer').innerHTML = "<div class='row col-sm-8'>" +user + " IS ONLINE!" + "<div> <small>" + userData.stream.game+"  <b>Viewers: </b>" + userData.stream.viewers + "  <img src='"+ userData.stream.preview.small+"'></img></small></div></div>"+currentHTML;
   }
 return "fell through";
 }
