@@ -2,7 +2,6 @@
 //  Global Vars  //
 ///////////////////
 var userList = ["freecodecamp","medrybw", "adamkoebel","rollplay","djwheat" ];
-var userHTML = "<p>DERP</p>"
 
 ///////////////////
 // Doc Ready     //
@@ -11,26 +10,33 @@ var userHTML = "<p>DERP</p>"
 
 function getStreamData(user){
 // First we need to get the link list.
-var userData={};
-var channelData={};
-$.getJSON('https://api.twitch.tv/kraken/streams/'+user+'?callback=?', function(data) {
+$.getJSON('https://api.twitch.tv/kraken/streams/'+user+'?callback=?').then(function(data) {
   // We need to go DEEPER
-  userData=data;
-  console.log( userData.stream, 'https://api.twitch.tv/kraken/streams/'+user+'?callback=?')
+  console.log( data.stream, 'https://api.twitch.tv/kraken/streams/'+user+'?callback=?')
   // Cool channel data we could surface in a tooltip
   $.getJSON(data._links.channel, function(channelData) {
-    console.log(channelData);
+    //console.log(channelData);
   });
+  updateHTML(user, data);
  });
+}
+
+function updateHTML(user,userData){
+  
+
+  if(document.getElementById('userContainer').innerHTML=="Getting twitchy."){
+    document.getElementById('userContainer').innerHTML="";
+  }
 
   if (!userData.stream){
-    return (user + " is offline."); 
+//    var currentHTML = document.getElementById('userContainer').innerHTML;
+    document.getElementById('userContainer').innerHTML += "</br>" +user + " is offline."
   }
   if (userData.stream){  
     console.log(userData);
-    return (user + " IS ONLINE!" + "game" + userData.stream.game+"viewers" + userData.stream.viewers + "preview" + userData.streams.preview.small);
+    currentHTML = document.getElementById('userContainer').innerHTML;
+    document.getElementById('userContainer').innerHTML = "</br>" +user + " IS ONLINE!" + "<div> <small>" + userData.stream.game+"  <b>Viewers: </b>" + userData.stream.viewers + "  <img src='"+ userData.stream.preview.small+"'></img></small>"+currentHTML;
   }
-  //console.log({"game":userData.stream.game, "viewers":userData.stream.viewers, "preview": userData.stream.preview.small}); 
 return "fell through";
 }
 
@@ -39,9 +45,7 @@ return "fell through";
 // Make sure you load jQuery in your html doc FIRST!!
 jQuery(document).ready(function($) {
  for (index in userList){
-   console.log(getStreamData(userList[index]));
-   userHTML= userHTML + "</br>" + getStreamData(userList[index]);
-   console.log(userHTML);
+//   console.log(getStreamData(userList[index]));
+   getStreamData(userList[index])	   
  }
- document.getElementById('userContainer').innerHTML = (userHTML);
 });
