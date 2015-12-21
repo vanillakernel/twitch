@@ -8,6 +8,23 @@
 
 .row{
 
-margin-bottom:1px;
+  border-width: 1px;
+  border-color: #CCC;
+  padding: 2px;
+  text-align: center;
+  width: 100%;
+  margin-bottom:;
 
+}
+
+.offline{
+
+  border-width:2px; 
+  border-color: #CCC;
+  color : #BBB !important;
+}
+
+.online{
+  color: #333;
+  font-size: 1.1em;
 }
